@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var arrayQuestions = [
+            'Are you a booklover?',
+            'Do you read a book?',
+            'Do they go to hell?',
+            'Do you like to travel?',
+            'Do you like your life?'
+        ];
+        var answers = [
+            'not selected',
+            'yes',
+            'no'
+        ];
+
+        $(document).ready(function () {
+            for (i = 0; i < arrayQuestions.length; i++) {
+                $('#question').html($('#question').html() + '<div id="' + i + '"><p>' + arrayQuestions[i] + '</p>' + z(arrayQuestions[i]) + '<hr></div>');
+
+                if (i !== 0) {
+                    n(i);
+                }
+            }
+            $("input:radio[value='not selected']").attr({"checked": "true"});
+
+            $("input:radio").click(function (event) {
+
+                switch(event.target.value) {
+                    case "yes":
+                        b(event.currentTarget.parentElement.parentElement.id);
+                        break;
+                    case "no":
+                        n(event.currentTarget.parentElement.parentElement.id+1);
+                        break;
+                }
+            });
+        });
+
+        var b = function (id) {
+            $("#" + (parseInt(id)+1)).show();
+        };
+
+        var n = function (value) {
+            for(var k = parseInt(value); k<arrayQuestions.length; k++) {
+                $("#"+k).hide().find("input:first").prop({checked: true});
+            }
+        };
+
+        var z = function (radioname) {
+            var x = '';
+            for (var k = 0; k < answers.length; k++) {
+                x = x + '<label><input type="radio" name="' + radioname + '" value="' + answers[k] + '">' + answers[k] + '</label><br>';
+            }
+            return x;
+        };
+    </script>
+</head>
+<body>
+<div id="question"></div>
+</body>
+</html>
